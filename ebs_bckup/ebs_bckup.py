@@ -1,11 +1,11 @@
 import boto3
-import ConfigParser
+import configparser
 import botocore
 import datetime
 import re
 import collections
 
-config = ConfigParser.RawConfigParser()
+config = configparser.ConfigParser()
 config.read('./vars.ini')
 
 print('Loading Backup function')
@@ -70,5 +70,5 @@ def lambda_handler(event, context):
         ]
         snapshot_response = ec.describe_snapshots(OwnerIds=['%s' % account], Filters=filters)
         for snap in snapshot_response['Snapshots']:
-            print "Deleting snapshot %s" % snap['SnapshotId']
+            print ("Deleting snapshot %s" % snap['SnapshotId'])
             ec.delete_snapshot(SnapshotId=snap['SnapshotId'])
